@@ -1,0 +1,13 @@
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\Demo\bin\Debug\netcoreapp3.1\Demo.exe
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\Demo\bin\Debug\netcoreapp3.1\Demo.deps.json
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\Demo\bin\Debug\netcoreapp3.1\Demo.runtimeconfig.json
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\Demo\bin\Debug\netcoreapp3.1\Demo.runtimeconfig.dev.json
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\Demo\bin\Debug\netcoreapp3.1\Demo.dll
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\Demo\bin\Debug\netcoreapp3.1\Demo.pdb
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\Demo\obj\Debug\netcoreapp3.1\Demo.csprojAssemblyReference.cache
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\Demo\obj\Debug\netcoreapp3.1\Demo.AssemblyInfoInputs.cache
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\Demo\obj\Debug\netcoreapp3.1\Demo.AssemblyInfo.cs
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\Demo\obj\Debug\netcoreapp3.1\Demo.csproj.CoreCompileInputs.cache
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\Demo\obj\Debug\netcoreapp3.1\Demo.dll
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\Demo\obj\Debug\netcoreapp3.1\Demo.pdb
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\Demo\obj\Debug\netcoreapp3.1\Demo.genruntimeconfig.cache

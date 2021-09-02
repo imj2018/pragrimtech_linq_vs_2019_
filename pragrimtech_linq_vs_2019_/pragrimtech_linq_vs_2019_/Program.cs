@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace pragrimtech_linq_vs_2019_
 {
+    /// <summary>
+    /// 
+    /// </summary>
     class Program
     {
         static void Main(string[] args)
