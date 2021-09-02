@@ -1,0 +1,13 @@
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\bin\Debug\netcoreapp3.1\pragrimtech_linq_vs_2019_.exe
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\bin\Debug\netcoreapp3.1\pragrimtech_linq_vs_2019_.deps.json
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\bin\Debug\netcoreapp3.1\pragrimtech_linq_vs_2019_.runtimeconfig.json
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\bin\Debug\netcoreapp3.1\pragrimtech_linq_vs_2019_.runtimeconfig.dev.json
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\bin\Debug\netcoreapp3.1\pragrimtech_linq_vs_2019_.dll
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\bin\Debug\netcoreapp3.1\pragrimtech_linq_vs_2019_.pdb
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\obj\Debug\netcoreapp3.1\pragrimtech_linq_vs_2019_.csprojAssemblyReference.cache
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\obj\Debug\netcoreapp3.1\pragrimtech_linq_vs_2019_.AssemblyInfoInputs.cache
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\obj\Debug\netcoreapp3.1\pragrimtech_linq_vs_2019_.AssemblyInfo.cs
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\obj\Debug\netcoreapp3.1\pragrimtech_linq_vs_2019_.csproj.CoreCompileInputs.cache
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\obj\Debug\netcoreapp3.1\pragrimtech_linq_vs_2019_.dll
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\obj\Debug\netcoreapp3.1\pragrimtech_linq_vs_2019_.pdb
+C:\Users\miral\source\repos\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\pragrimtech_linq_vs_2019_\obj\Debug\netcoreapp3.1\pragrimtech_linq_vs_2019_.genruntimeconfig.cache
