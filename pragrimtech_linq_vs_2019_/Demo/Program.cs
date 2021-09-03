@@ -6,29 +6,32 @@ namespace Demo
     {
         static void Main(string[] args)
         {
-            string[] countries = { "india", "USA", "UK" };
+            //string[] countries = { "India", "USA", "UK", "Canada", "Australia" };
 
-            int? result = null;
+            //string result = string.Empty;
 
-            foreach (string str in countries)
+            //foreach (var str in countries)
+            //{
+            //    //result = result + str + ", ";
+            //    result += str + ", ";
+            //}
+
+            //int lastIndex = result.LastIndexOf(",");
+            //result = result.Remove(lastIndex);
+
+            //Console.WriteLine(result);
+
+
+            int[] Numbers = { 2, 3, 4, 5 };
+
+            int result = 1;
+
+            foreach (int number in Numbers)
             {
-                //  if that has less characters store in result
-                // 
-                //if (!result.HasValue || str.Length < result)
-                //{
-                //    result = str.Length;
-                //}
-
-                if (!result.HasValue || str.Length > result)
-                {
-                    result = str.Length;
-                }
+                result = result * number;
             }
 
-            //Console.WriteLine("The shortest country name has {0} characters in its name",
-            //    result);
-            Console.WriteLine("The longest country name has {0} characters in its name",
-                result);
+            Console.WriteLine(result);
 
         }
     }
