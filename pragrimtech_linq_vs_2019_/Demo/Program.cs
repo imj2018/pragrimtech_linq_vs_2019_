@@ -8,84 +8,61 @@ namespace Demo
     {
         static void Main(string[] args)
         {
-            List<int> numbers = new List<int> { 1, 2, 4, 5, 6, 7, 8, 9, 10 };
-
-            //  the lambda matches the requirements of the Func<int, bool>
-            //  x is int, x % 2 == 0 is a bool e.g if it were x + 2 for the expression
-            //  it would return an error as it return an int
+            //  returns an IEnumerable<int> collection i.e a List of all employee IDs
             // 
-            //IEnumerable<int> evenNumbers = numbers.Where(x => x % 2 == 0);
+            //IEnumerable<int> results = Employee.GetAllEmployees().Select(emp => emp.EmployeeID);
 
-
-            //  explicitely use and pass a Func (generic delegate)
-            //  
-            //Func<int, bool> predicate = x => x % 2 == 0;
-            //IEnumerable<int> evenNumbers = numbers.Where(predicate);
-
-
-            //IEnumerable<int> evenNumbers = numbers.Where(num => isEven(num));
-
-
-            //  look like SQL, T-SQL
-            //
-            //IEnumerable<int> evenNumbers = from num in numbers
-            //                               where num % 2 == 0
-            //                               select num;
-
-
-            //  the second parameter can be used to get the index of each
-            //
-            //  this will throw an error as it is returning an anonymous type therefore
-            //  the var keyword can be used, it will contain IEnumerable of the anonymous 
-            //  type new { Number = num, Index = index }
-            //
-            //var result = numbers.Select((num, index) => new { Number = num, Index = index });
-
-            //foreach (var item in result)
+            //foreach (int id in results)
             //{
-            //    Console.WriteLine(item.Number + " - " + item.Index);
+            //    Console.WriteLine(id);
             //}
 
 
-            //  only even numbers
-            //
-            //var result = numbers
-            //    .Select((num, index) => new { Number = num, Index = index })
-            //    .Where(x => x.Number % 2 == 0);
+            //  project first name and gender to an anonymous type
+            //  "an anonymous type is a type that does not contain contain a name that's why we are simply 
+            //  saying new"
+            // 
+            //  Select is returning an anonymous type i.e IEnumerable<'a> so we cannot denote the type of
+            //  IEnumberable returned so var cant be used
+            // 
+            //var results = Employee.GetAllEmployees().Select(emp => new { emp.FirstName, emp.Gender });
 
-            //foreach (var item in result)
+            //foreach (var v in results)
             //{
-            //    Console.WriteLine(item.Number + " - " + item.Index);
+            //    Console.WriteLine(v.FirstName + " - " + v.Gender);
             //}
 
-            //  returning only the Index it will only return the Index which is
-            //  type integer dnot as an anonymous object unlike before
-            //
-            var result = numbers
-                .Select((num, index) => new { Number = num, Index = index })
-                .Where(x => x.Number % 2 == 0)
-                .Select(x => x.Index);
 
-            foreach (var item in result)
+            //  projecting a new a anonymous type, settings its own properties
+            // 
+            //var results = Employee.GetAllEmployees()
+            //    .Select(emp => new
+            //    { 
+            //        FullName = emp.FirstName + " " + emp.LastName, 
+            //        Gender = emp.Gender, 
+            //        MonthlySalary = emp.AnnualSalary / 12 
+            //    });
+
+            //foreach (var v in results)
+            //{
+            //    Console.WriteLine(v.FullName + " - " + v.Gender + " - " + v.MonthlySalary);
+            //}
+
+
+            //  project a new anonymous type with a 10% bonus if annual salary exceeds 50000
+            var results = Employee.GetAllEmployees()
+                .Where(x => x.AnnualSalary > 50000)
+                .Select(emp => new
+                {
+                    Name = emp.FirstName,
+                    AnnualSalary = emp.AnnualSalary,
+                    Bonus = emp.AnnualSalary * .1
+                });
+
+            foreach (var v in results)
             {
-                Console.WriteLine(item);
+                Console.WriteLine(v.Name + " : " + v.AnnualSalary + " - " + v.Bonus);
             }
-
-
-        }
-
-        private static bool isEven(int number)
-        {
-            //if (number % 2 == 0)
-            //{
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
-
-            return number % 2 == 0;
         }
 
     }
