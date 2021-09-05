@@ -8,68 +8,78 @@ namespace Demo
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Student names before sorting");
-            List<Student> students = Student.GetAllStudents();
+            //  using another order by will sort the results by ascending order
+            //  but what we want is total marks in ascending order then names in
+            //  ascending order
+            //
+            //IOrderedEnumerable<Student> result = Student.GetAllStudents()
+            //    .OrderBy(s => s.TotalMarks).OrderBy(s => s.Name);
 
-            foreach (Student student in students)
+
+            //  first OrderBy for the primary sort for total marks then
+            //  the results should be sorted by name with ThenBy in ascending order
+            //  for Name
+            IOrderedEnumerable<Student> result = Student.GetAllStudents()
+                .OrderBy(s => s.TotalMarks).ThenBy(s => s.Name);
+
+            foreach (var s in result)
             {
-                Console.WriteLine(student.Name);
+                Console.WriteLine(s.TotalMarks + "\t" + s.Name + "\t" + s.StudentID);
+
             }
             Console.WriteLine("");
+            
 
+            //  ThenByDescending to sort by student ID in descending
+            //  
+            IOrderedEnumerable<Student> resultThenByDescending = Student.GetAllStudents()
+                .OrderBy(s => s.TotalMarks)
+                .ThenBy(s => s.Name)
+                .ThenByDescending(s => s.StudentID);
 
-            //  OrderBy to sort students by name in ascending order
-            //
-            //IOrderedEnumerable<Student> result = Student.GetAllStudents().OrderBy(s => s.Name);
-
-            //  though IOrderedEnumerable is returned IEnumerable can still be used as
-            //  IOrderedEnumerable enumerable inherits from IEnumerable
-            //
-            IEnumerable<Student> result = Student.GetAllStudents().OrderBy(s => s.Name);
-
-            Console.WriteLine("Students names after sorting");
-            foreach (Student student in result)
+            foreach (var s in resultThenByDescending)
             {
-                Console.WriteLine(student.Name);
+                Console.WriteLine(s.TotalMarks + "\t" + s.Name + "\t" + s.StudentID);
+
             }
             Console.WriteLine("");
 
 
             //  SQL like
             //
-            //  will orderby ascending by default
-            //
-            IOrderedEnumerable<Student> resultSQL = from student in Student.GetAllStudents()
-                                                    orderby student.Name ascending
-                                                    select student;
+            //  ordeby seperated by commas, the properties will be ordered by ascending by default
+            //  except the student ID which will be descending
+            // 
+            IOrderedEnumerable<Student> resultSql = from s in Student.GetAllStudents()
+                                                    orderby s.TotalMarks, s.Name, s.StudentID descending
+                                                    select s;
 
-            Console.WriteLine("Students names after sorting");
-            foreach (Student student in resultSQL)
+            foreach (var s in resultSql)
             {
-                Console.WriteLine(student.Name);
+                Console.WriteLine(s.TotalMarks + "\t" + s.Name + "\t" + s.StudentID);
+
             }
             Console.WriteLine("");
 
 
-            IOrderedEnumerable<Student> resultDescending = Student.GetAllStudents().OrderByDescending(s => s.Name);
-            
-            Console.WriteLine("Students names after sorting");
-            foreach (Student student in resultSQL)
+            IEnumerable<Student> students = Student.GetAllStudents();        
+            Console.WriteLine("Before calling Reverse Method");
+            foreach (Student s in students)
             {
-                Console.WriteLine(student.Name);
+                Console.WriteLine(s.StudentID + "\t" + s.Name + "\t" + s.TotalMarks);
+
             }
             Console.WriteLine("");
 
 
-            IOrderedEnumerable<Student> resultSQLDescending = from student in Student.GetAllStudents()
-                                                              orderby student.Name descending
-                                                              select student;
-
-            Console.WriteLine("Students names after sorting");
-            foreach (Student student in resultSQLDescending)
+            IEnumerable<Student> resultReverse = students.Reverse();
+            Console.WriteLine("After calling Reverse Method");
+            foreach (Student s in resultReverse)
             {
-                Console.WriteLine(student.Name);
+                Console.WriteLine(s.StudentID + "\t" + s.Name + "\t" + s.TotalMarks);
+
             }
+
 
 
         }
