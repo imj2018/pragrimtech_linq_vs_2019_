@@ -8,61 +8,89 @@ namespace Demo
     {
         static void Main(string[] args)
         {
-            //  returns an IEnumerable<int> collection i.e a List of all employee IDs
+            //  SelectMany to retrieve all the students subjects
             // 
-            //IEnumerable<int> results = Employee.GetAllEmployees().Select(emp => emp.EmployeeID);
-
-            //foreach (int id in results)
-            //{
-            //    Console.WriteLine(id);
-            //}
-
-
-            //  project first name and gender to an anonymous type
-            //  "an anonymous type is a type that does not contain contain a name that's why we are simply 
-            //  saying new"
+            //  the lambda expression is applied to all student objects in the List of students
             // 
-            //  Select is returning an anonymous type i.e IEnumerable<'a> so we cannot denote the type of
-            //  IEnumberable returned so var cant be used
+            //  "What is Select many going to do, this is going to project all the subjects of a
+            //  given student to a single IEnumerable of string... We have got 4 students so there
+            //  will be 4 IEnumberable of strings, all of them will be flattened/combined to form a single
+            //  IEnumberable of string"
+            //
+            //IEnumerable<string> subjects = Student.GetAllStudents().SelectMany(s => s.Subjects);
+
+            //  SQL like syntax
+            //
+            //  the second from clause will get its data from the first from clause i.e 
+            //  the first from clause will get the List of all students, the second will
+            //  will get all the Subjects
             // 
-            //var results = Employee.GetAllEmployees().Select(emp => new { emp.FirstName, emp.Gender });
-
-            //foreach (var v in results)
-            //{
-            //    Console.WriteLine(v.FirstName + " - " + v.Gender);
-            //}
+            //IEnumerable<string> subjects = from student in Student.GetAllStudents()
+            //                               from subject in student.Subjects
+            //                               select subject;
 
 
-            //  projecting a new a anonymous type, settings its own properties
-            // 
-            //var results = Employee.GetAllEmployees()
-            //    .Select(emp => new
-            //    { 
-            //        FullName = emp.FirstName + " " + emp.LastName, 
-            //        Gender = emp.Gender, 
-            //        MonthlySalary = emp.AnnualSalary / 12 
-            //    });
-
-            //foreach (var v in results)
-            //{
-            //    Console.WriteLine(v.FullName + " - " + v.Gender + " - " + v.MonthlySalary);
-            //}
-
-
-            //  project a new anonymous type with a 10% bonus if annual salary exceeds 50000
-            var results = Employee.GetAllEmployees()
-                .Where(x => x.AnnualSalary > 50000)
-                .Select(emp => new
-                {
-                    Name = emp.FirstName,
-                    AnnualSalary = emp.AnnualSalary,
-                    Bonus = emp.AnnualSalary * .1
-                });
-
-            foreach (var v in results)
+            string[] stringArray =
             {
-                Console.WriteLine(v.Name + " : " + v.AnnualSalary + " - " + v.Bonus);
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                "0123456789"
+            };
+
+            //  two IEnumberable of character sequences that will be flattened/combined to form a single
+            //  IEnumberable of character sequence
+            //
+            //IEnumerable<char> result = stringArray.SelectMany(s => s);
+
+            //  SQL like syntax
+            //
+            //IEnumerable<char> result = from s in stringArray
+            //                           from c in s
+            //                           select c;
+
+            //foreach (char c in result)
+            //{
+            //    Console.WriteLine(c);
+            //}
+            //Console.WriteLine("");
+
+            //  multiple students are enrolled in C#, Distince can be used
+            //  to filter out multiple results that are the same
+            //  
+            //IEnumerable<string> subjects = Student.GetAllStudents().SelectMany(s => s.Subjects).Distinct();
+
+            //  SQL like syntax
+            //
+            //  invoke Distict on the results on this query i.e use of open brackets
+            // 
+            //IEnumerable<string> subjects = (from student in Student.GetAllStudents()
+            //                              from subject in student.Subjects
+            //                              select subject).Distinct();
+
+
+            //  the student name and subject
+            //  
+            //  s => s.Subjects to get the List of subjects, create two variables (student, subject)
+            //  then project into a new anonymous type 
+            // 
+            //  the StudentName will get all the names front the student variable, the other property
+            //  SubjectName will get it's value from subject
+            //  
+            var result = Student.GetAllStudents()
+                .SelectMany(s => s.Subjects, 
+                (student, subject) => new { 
+                    StudentName = student.Name, 
+                    SubjectName = subject 
+                } );
+
+            var resultSQL = from student in Student.GetAllStudents()
+                            from subject in student.Subjects
+                            select new { StudentName = student.Name, SubjectName = subject };
+
+            foreach (var v in resultSQL)
+            {
+                Console.WriteLine(v.StudentName + " - " + v.SubjectName);
             }
+
         }
 
     }
