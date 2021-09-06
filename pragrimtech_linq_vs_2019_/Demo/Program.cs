@@ -8,80 +8,44 @@ namespace Demo
     {
         static void Main(string[] args)
         {
-            //  using another order by will sort the results by ascending order
-            //  but what we want is total marks in ascending order then names in
-            //  ascending order
+            string[] countries = { "Australia", "Canada", "Germany", "US", "India", "UK", "Italy" };
+
+            //  Take will return the first 3 country names   
             //
-            //IOrderedEnumerable<Student> result = Student.GetAllStudents()
-            //    .OrderBy(s => s.TotalMarks).OrderBy(s => s.Name);
-
-
-            //  first OrderBy for the primary sort for total marks then
-            //  the results should be sorted by name with ThenBy in ascending order
-            //  for Name
-            IOrderedEnumerable<Student> result = Student.GetAllStudents()
-                .OrderBy(s => s.TotalMarks).ThenBy(s => s.Name);
-
-            foreach (var s in result)
-            {
-                Console.WriteLine(s.TotalMarks + "\t" + s.Name + "\t" + s.StudentID);
-
-            }
-            Console.WriteLine("");
-            
-
-            //  ThenByDescending to sort by student ID in descending
-            //  
-            IOrderedEnumerable<Student> resultThenByDescending = Student.GetAllStudents()
-                .OrderBy(s => s.TotalMarks)
-                .ThenBy(s => s.Name)
-                .ThenByDescending(s => s.StudentID);
-
-            foreach (var s in resultThenByDescending)
-            {
-                Console.WriteLine(s.TotalMarks + "\t" + s.Name + "\t" + s.StudentID);
-
-            }
-            Console.WriteLine("");
-
+            IEnumerable<string> result = countries.Take(3);
 
             //  SQL like
             //
-            //  ordeby seperated by commas, the properties will be ordered by ascending by default
-            //  except the student ID which will be descending
+            IEnumerable<string> resultSql = (from country in countries
+                                            select country).Take(3);
+
+
+            //  Skip will skip the elements then return the remaining  
             // 
-            IOrderedEnumerable<Student> resultSql = from s in Student.GetAllStudents()
-                                                    orderby s.TotalMarks, s.Name, s.StudentID descending
-                                                    select s;
+            IEnumerable<string> resultSkip = countries.Skip(3);
 
-            foreach (var s in resultSql)
+
+            //  TakeWhile, the lambda will be executed against every item to check if true
+            //  then return each string greater than 2
+            // 
+            IEnumerable<string> resultTakeWhile = countries.TakeWhile(c => c.Length > 2);
+
+            IEnumerable<string> resultTakeWhileSql = (from c in countries
+                                                      select c).TakeWhile(c => c.Length > 2);
+
+
+            //  SkipWhile will execute until the condition is false i.e it gets to US 
+            //  then will return the remaning 
+            //  
+            IEnumerable<string> resultSkipWhile = countries.SkipWhile(c => c.Length > 2);
+
+            IEnumerable<string> resultSkipWhileSql = (from c in countries
+                                                      select c).SkipWhile(c => c.Length > 2);
+
+            foreach (var str in resultSkipWhileSql)
             {
-                Console.WriteLine(s.TotalMarks + "\t" + s.Name + "\t" + s.StudentID);
-
+                Console.WriteLine(str);
             }
-            Console.WriteLine("");
-
-
-            IEnumerable<Student> students = Student.GetAllStudents();        
-            Console.WriteLine("Before calling Reverse Method");
-            foreach (Student s in students)
-            {
-                Console.WriteLine(s.StudentID + "\t" + s.Name + "\t" + s.TotalMarks);
-
-            }
-            Console.WriteLine("");
-
-
-            IEnumerable<Student> resultReverse = students.Reverse();
-            Console.WriteLine("After calling Reverse Method");
-            foreach (Student s in resultReverse)
-            {
-                Console.WriteLine(s.StudentID + "\t" + s.Name + "\t" + s.TotalMarks);
-
-            }
-
-
-
         }
 
     }
