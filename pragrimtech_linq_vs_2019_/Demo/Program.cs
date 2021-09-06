@@ -8,54 +8,55 @@ namespace Demo
     {
         static void Main(string[] args)
         {
-            do
+
+            List<Student> listStudents = new List<Student>()
             {
-                IEnumerable<Student> students = Student.GetAllStudents();
+                new Student { StudentID = 101, Name = "Tom", TotalMarks = 800 },
+                new Student { StudentID = 102, Name = "Mary", TotalMarks = 900  },
+                new Student { StudentID = 103, Name = "Pam", TotalMarks = 800  }
+            };
 
-                Console.WriteLine("Please enter Page Number - 1,2,3 or 4");
 
-                int pageNumber = 0;
+            //  "LINQ operators can be broadly classified into 2 categories based on the behaviour of query execution
+            //  1.Deferred or Lazy Operators - These query operators use deferred execution.Examples - select, where, Take, Skip etc
+            //  2.Immediate or Greedy Operators - These query operators use immediate execution.Examples - count, average, min, max, ToList etc"
 
-                if (int.TryParse(Console.ReadLine(), out pageNumber))
-                {
-                    if (pageNumber >= 1 && pageNumber <= 4)
-                    {
-                        int pageSize = 3;
 
-                        //  e.g if the user has entered page 1 get the first 3 records 
-                        //  and do not skip any records. if the user enters 1 then 1 - 1 = 0 * 3
-                        //  is 0 so no pages will be skipped.
-                        //  
-                        //students.Skip((pageNumber - 1) * pageSize);
+            //  if the query executed is executed Tim should not be in the result, 
+            //  Tim is in the result so the query is not executed where is defined therefore
+            //  it is known as deferred execution
+            // 
+            //IEnumerable<Student> result = from student in listStudents
+            //                              where student.TotalMarks == 800
+            //                              select student;
 
-                        //  Take 3 records or objects i.e pageSize
-                        //  if user enters 2 then 2 - 1 = 1 * 3 is 3, so skip 3 for then take/get
-                        //  the next 3 i.e 104, 105, 106
-                        //  
-                        //students.Skip((pageNumber - 1) * pageSize).Take(pageSize);
 
-                        //  store them to print
-                        IEnumerable<Student> result = students.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            //  an immediate operator like ToList will force the query to execute where it is defined
+            //  therefore Tim will not be added to the List
+            // 
+            //IEnumerable<Student> result = (from student in listStudents
+            //                               where student.TotalMarks == 800
+            //                               select student).ToList();
 
-                        Console.WriteLine("");
-                        Console.WriteLine("Displaying Page " + pageNumber);
-                        foreach (Student student in result)
-                        {
-                            Console.WriteLine(student.StudentID + "\t" + student.Name + "\t" + student.TotalMarks);
-                        }
 
-                    }
-                    else
-                    {
-                        Console.WriteLine("Page number must be an integer between 1 and 4");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Page number must be an integer between 1 and 4");
-                }
+            //  Count is also an immediate or greedy operator
+            //
+           int result = (from student in listStudents
+                         where student.TotalMarks == 800
+                         select student).Count();
 
-            } while (true);
+
+            listStudents.Add(new Student() { StudentID = 104, Name = "Tim", TotalMarks = 800 });
+
+
+            //foreach (Student student in result)
+            //{
+            //    Console.WriteLine(student.StudentID + "\t" + student.Name + "\t" + student.TotalMarks);           
+            //}
+
+            Console.WriteLine("Total = " + result);
+
+
 
         }
 
