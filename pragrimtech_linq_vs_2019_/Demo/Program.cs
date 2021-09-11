@@ -6,7 +6,7 @@ using System.Linq;
 namespace Demo
 {
     /// <summary>
-    ///  
+    /// 
     /// 
     /// </summary>
     class Program
@@ -56,7 +56,6 @@ namespace Demo
                                  };
 
 
-
             foreach (var group in employeeGroups)
             {
                 //  to reiterate these are all aggregate functions
@@ -77,9 +76,16 @@ namespace Demo
                 //
                 //foreach (var employee in group)
 
-            foreach (var e in result)
-            {
-                Console.WriteLine(e.FirstName + "\t" + e.AnnualSalary + "\t" + e.Gender); 
+                //  the employees are no longer present in group, they are now in the Employees
+                //  property i.e they have been projected into the Employees property
+                //
+                foreach (var employee in group.Employees)
+                {
+                    Console.WriteLine(employee.Name + "\t" + employee.Department);
+                }
+                Console.WriteLine("");
+                Console.WriteLine("");
+
             }
 
 
