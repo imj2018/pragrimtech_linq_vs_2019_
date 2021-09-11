@@ -6,41 +6,39 @@ using System.Linq;
 namespace Demo
 {
     /// <summary>
-    ///  attempt without sql db
-    ///  
+    /// test ammend
+    /// 
     /// </summary>
     class Program
     {
 
         public static void Main()
         {
-            List<Employee> employees = Employee.GetAllEmployees();
-
-            
-            IEnumerable<Employee> result = employees
-
-                //  "So in short, use AsEnumberable operator to move query processing to the client side"
-
-                //  AsEnumerable will break the query in 2 parts
-                //  before AsEnumerable i.e the INSIDE PART, is called as a select all from in SQL which is
-                //  executed as Linq-to-SQL
-                // 
-                //.AsEnumerable()
-
-                //  the second part i.e OUTSIDE PART is executed after AsEnumerable on the data/objects in memory
-                //  Where, OrderByDescending and Take are applied to them as Linq-to-Objects on the client side
-                // 
-                .Where(x => x.Gender == "Male")
-
-                //  e.g if AsEnumerable is put here it will also include the WHERE clause in the SQL
-                .AsEnumerable()
-                .OrderByDescending(x => x.AnnualSalary)
-                .Take(5);
+   
+            var employeeGroups = from employee in Employee.GetAllEmployees()              
+                                 group employee by employee.Department into eGroup
+                                 orderby eGroup.Key
+                                 select new
+                                 {
+                                     Key = eGroup.Key,
+                                     Employees = eGroup.OrderBy(x => x.Name)
+                                 };
 
 
-            foreach (var e in result)
+
+            foreach (var group in employeeGroups)
             {
-                Console.WriteLine(e.FirstName + "\t" + e.AnnualSalary + "\t" + e.Gender); 
+                Console.WriteLine("{0} - {1}", group.Key, group.Employees.Count());
+                Console.WriteLine("------------");
+
+                foreach (var employee in group.Employees)
+                {
+                    Console.WriteLine(employee.Name + "\t" + employee.Department);
+                }
+                Console.WriteLine("");
+                Console.WriteLine("");
+
+
             }
 
 
