@@ -16,50 +16,57 @@ namespace Demo
 
         public static void Main()
         {
-            //var employeeGroups = Employee.GetAllEmployees()
-            //    .GroupBy(x => new { x.Department, x.Gender })
-            //    .OrderBy(g => g.Key.Department).ThenBy(g => g.Key.Gender)
-            //    .Select(g => new
-            //    {
-            //        Dept = g.Key.Department,
-            //        Gender = g.Key.Gender,
-            //        Employees = g.OrderBy(x => x.Name)
-            //    });
+            //int[] numbers = { };
+            //int result = numbers.First(x => x < 4);
+            //int[] numbers = { 1, 3 };
+            //int result = numbers.First();
+
+            int[] numbers = { 1, 2, 4, 5, 6, 7, 8, 9};
 
 
-            //  SQL like
-            // 
-            var employeeGroups = from employee in Employee.GetAllEmployees()
-                                 group employee by new { employee.Department, employee.Gender } into eGroup
-                                 orderby eGroup.Key.Department, eGroup.Key.Gender
-                                 select new
-                                 {
-                                     Dept = eGroup.Key.Department,
-                                     Gender = eGroup.Key.Gender,
-                                     Employees = eGroup.OrderBy(x => x.Name)
-                                 };
+            //int[] numbers = { };
+            int result = numbers.FirstOrDefault();
 
-            foreach (var group in employeeGroups)
+            //int resultLast = numbers.Last();
+            int resultLast = numbers.LastOrDefault(x => x < 5);
+
+
+            //int resultElementAt = numbers.ElementAt(3);
+            int resultElementAt = numbers.ElementAtOrDefault(100);
+
+
+            int[] numbersSingle = { 2 };
+            
+            //int resultSingle = numbers.Single();
+            
+            //int resultSingle = numbersSingle.Single(x => x % 2 == 0);
+            int resultSingle = numbersSingle.SingleOrDefault(x => x % 2 == 0);
+
+
+            //int[] numbersDefaultIfEmpty = { };
+            int[] numbersDefaultIfEmpty = { 1, 2, 3 };
+
+            //IEnumerable<int> resultDefaultIfEmpty = numbersDefaultIfEmpty.DefaultIfEmpty();
+            IEnumerable<int> resultDefaultIfEmpty = numbersDefaultIfEmpty.DefaultIfEmpty(100);
+
+            foreach (var i in resultDefaultIfEmpty)
             {
-                Console.WriteLine("{0} department {1} employees count = {2}",
-                    group.Dept, group.Gender, employeeGroups.Count());
-                Console.WriteLine("--------------------------------------------");
-
-                foreach (var employee in group.Employees)
-                {
-                    Console.WriteLine(employee.Name + "\t" + employee.Gender + "\t" + employee.Department);
-                }
-                Console.WriteLine("");
-                Console.WriteLine("");
-
-
+                Console.Write(i);
             }
+            Console.WriteLine("");
+
+
+            Console.WriteLine("Result = " + result); 
+            Console.WriteLine("Result = " + resultLast);
+            Console.WriteLine("Result = " + resultElementAt);
+            Console.WriteLine("Result = " + resultSingle);
+
+
 
         }
 
 
     }
-
 
 
 }
