@@ -27,7 +27,7 @@ namespace Demo
             new Employee { ID = 7, Name = "John", DepartmentID = 1 },
             new Employee { ID = 8, Name = "Pam", DepartmentID = 1 },
             new Employee { ID = 9, Name = "Stacey", DepartmentID = 2},
-            new Employee { ID = 10, Name = "Andy", DepartmentID = 1, }
+            new Employee { ID = 10, Name = "Andy", }
         };
 
         }

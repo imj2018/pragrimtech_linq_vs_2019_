@@ -16,49 +16,37 @@ namespace Demo
 
         public static void Main()
         {
-            //  Department.GetAllDepartments is the outer sequence, Employee.GetAllEmployees() is
-            //  the inner
-            //
-            //var employeesByDepartment = Department.GetAllDepartments()
-            //                                      .GroupJoin(Employee.GetAllEmployees(),
-            //                                      d => d.ID,
-            //                                      e => e.DepartmentID,
-            //                                      (department, employees) => new
-            //                                      {
-            //                                          Department = department,
-            //                                          Employees = employees
-            //                                      }) ;
+            //  for the inner join only the matching elements between two collections
+            //  will be returned
+            // 
+            //var result = Employee.GetAllEmployees().Join(Department.GetAllDepartments(),
+            //                                        e => e.DepartmentID,
+            //                                        d => d.ID,
+            //                                        (employee, department) => new
+            //                                        {
+            //                                            EmployeeName = employee.Name,
+            //                                            DepartmentName = department.Name,
+            //                                        });
 
 
-            // SQL like
-            //
-            var employeesByDepartment = from d in Department.GetAllDepartments()
-                                        join e in Employee.GetAllEmployees()
-                                        on d.ID equals e.DepartmentID into eGroup
-                                        select new
-                                        {
-                                            Department = d,
-                                            Employees = eGroup
-                                        };
+            var result = from e in Employee.GetAllEmployees()
+                         join d in Department.GetAllDepartments()
+                         on e.DepartmentID equals d.ID
+                         select new
+                         {
+                             EmployeeName = e.Name,
+                             DepartmentName = d.Name
+                         };
 
 
-            foreach (var department in employeesByDepartment)
+            foreach (var employee in result)
             {
-                Console.WriteLine(department.Department.Name + " " + department.Department.ID);
-                
-                foreach (var employee in department.Employees)
-                {
-                    Console.WriteLine(" " + employee.Name);
-                }
-                Console.WriteLine("");
+                Console.WriteLine(employee.EmployeeName + "\t" + employee.DepartmentName);
             }
-
- 
 
 
 
         }
-
 
     }
 
