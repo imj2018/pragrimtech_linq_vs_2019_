@@ -16,45 +16,39 @@ namespace Demo
 
         public static void Main()
         {
-            //  List of employees will be the left collection and list of Departments 
-            //  will be the right collection
-            // 
-            var result = from e in Employee.GetAllEmployees()
-                         join d in Department.GetAllDepartments()
-                         on e.DepartmentID equals d.ID into employeesGroup
-                         from d in employeesGroup.DefaultIfEmpty()
-                         select new
-                         {
-                             EmployeeName = e.Name,
-                             //DeparmentName = d
-                             DepartmentName = d == null? "No Department" : d.Name
-                         };
+            //  Cross Join/Cartesian product will be the product of the two sequences which is 10, does not use
+            //  the on keyword 
+            //
+            //var result = from e in Employee.GetAllEmployees()
+            //             from d in Department.GetAllDepartments()
+
+
+            var result = from d in Department.GetAllDepartments()
+                         from e in Employee.GetAllEmployees()
+                         select new { e, d };
+
 
             foreach (var v in result)
             {
-                Console.WriteLine(v.EmployeeName + "\t" + v.DepartmentName);
+                Console.WriteLine(v.e.Name + "\t" + v.d.Name);
             }
             Console.WriteLine("");
 
 
-            var resultsMethod = Employee.GetAllEmployees().GroupJoin(Department.GetAllDepartments(),
-                                                            e => e.DepartmentID, d => d.ID,
-                                                            (employee, departments) => new
-                                                            {
-                                                                employee,
-                                                                departments
-                                                            })
-                                                            .SelectMany(z => z.departments.DefaultIfEmpty(),
-                                                            (a, b) => new
-                                                            {
-                                                                EmployeeName = a.employee.Name,
-                                                                DepartmentName = b == null ? "No Department" : b.Name
-                                                            });
+            //var resultMethod = Employee.GetAllEmployees()
+            //                           .SelectMany(e => Department.GetAllDepartments(),
+            //                           (e, d) => new { e, d });
 
-            foreach (var v in resultsMethod)
+            var resultMethod = Employee.GetAllEmployees().Join(Department.GetAllDepartments(),
+                                                            e => true,
+                                                            d => true,
+                                                            (e, d) => new { e, d });
+
+            foreach (var v in resultMethod)
             {
-                Console.WriteLine(v.EmployeeName + "\t" + v.DepartmentName);
+                Console.WriteLine(v.e.Name + "\t" + v.d.Name);
             }
+            Console.WriteLine("");
 
 
         }
