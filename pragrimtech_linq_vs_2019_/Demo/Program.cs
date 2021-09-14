@@ -16,44 +16,45 @@ namespace Demo
 
         public static void Main()
         {
-            //  Group Join is similar to outer join in SQL i.e even records with no matching elements
-            //  between collections will be returned. hierarchal data structure so two foreach loops are neeed
+            //  List of employees will be the left collection and list of Departments 
+            //  will be the right collection
             // 
-            var result = from d in Department.GetAllDepartments()
-                         join e in Employee.GetAllEmployees()
-                         on d.ID equals e.DepartmentID into employeeGroup
+            var result = from e in Employee.GetAllEmployees()
+                         join d in Department.GetAllDepartments()
+                         on e.DepartmentID equals d.ID into employeesGroup
+                         from d in employeesGroup.DefaultIfEmpty()
                          select new
                          {
-                             Department = d,
-                             Employees = employeeGroup
+                             EmployeeName = e.Name,
+                             //DeparmentName = d
+                             DepartmentName = d == null? "No Department" : d.Name
                          };
 
-            foreach (var department in result)
+            foreach (var v in result)
             {
-                Console.WriteLine(department.Department.Name);
-                foreach (var employee in department.Employees)
-                {
-                    Console.WriteLine(" " + employee.Name);
-                }
-                Console.WriteLine("");
+                Console.WriteLine(v.EmployeeName + "\t" + v.DepartmentName);
             }
+            Console.WriteLine("");
 
 
-            //  Inner Join will create a flat result with a 1 to 1 mapping, so department XX with no matching
-            //  elements between collections will  be excluded. similar to the inner join in SQL. 
-            //  flat so only one foreach is needed
-            // 
+            var resultsMethod = Employee.GetAllEmployees().GroupJoin(Department.GetAllDepartments(),
+                                                            e => e.DepartmentID, d => d.ID,
+                                                            (employee, departments) => new
+                                                            {
+                                                                employee,
+                                                                departments
+                                                            })
+                                                            .SelectMany(z => z.departments.DefaultIfEmpty(),
+                                                            (a, b) => new
+                                                            {
+                                                                EmployeeName = a.employee.Name,
+                                                                DepartmentName = b == null ? "No Department" : b.Name
+                                                            });
 
-            var resultInner = from e in Employee.GetAllEmployees()
-                              join d in Department.GetAllDepartments()
-                              on e.DepartmentID equals d.ID
-                              select new { e, d };
-
-            foreach (var employee in resultInner)
+            foreach (var v in resultsMethod)
             {
-                Console.WriteLine(employee.e.Name + "\t" + employee.d.Name);
+                Console.WriteLine(v.EmployeeName + "\t" + v.DepartmentName);
             }
-
 
 
         }

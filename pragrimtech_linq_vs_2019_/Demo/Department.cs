@@ -14,8 +14,7 @@ namespace Demo
             return new List<Department>
             {
                 new Department { ID = 1, Name = "IT"},
-                new Department { ID = 2, Name = "HR"},
-                new Department { ID = 3, Name = "XX"}
+                new Department { ID = 2, Name = "HR"}
 
             };
 
