@@ -12,7 +12,7 @@ namespace Demo
         /*public*/ string Department { get; set; }
         public int DepartmentID { get; set; }
         public int Salary { get; set; }
-
+     
 
         public static List<Employee> GetAllEmployees()
         {
@@ -31,6 +31,17 @@ namespace Demo
         };
 
         }
+
+
+        //public override bool Equals(object obj)
+        //{
+        //    return this.ID == ((Employee)obj).ID && this.Name == ((Employee)obj).Name;
+        //}
+
+        //public override int GetHashCode()
+        //{
+        //    return this.ID.GetHashCode() ^ this.Name.GetHashCode();
+        //}
 
     }
 }
