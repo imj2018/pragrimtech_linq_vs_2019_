@@ -16,30 +16,45 @@ namespace Demo
 
         public static void Main()
         {
-            string[] countries1 = { "USA", "India", "UK" };
-            //string[] countries2 = { "USA", "India", "UK" };
-            string[] countries2 = { "usa", "India", "uk" };
+            int[] numbers = { 1, 2, 3, 4, 5 };
+            
 
-            var result = countries1.SequenceEqual(countries2);  
-            var resultCaseSensitive = countries1.SequenceEqual(countries2, StringComparer.OrdinalIgnoreCase);
+            //  all elements are less than 10
+            //  
+            var result = numbers.All(x => x < 10);
 
-            Console.WriteLine("Are Equal = " + result);
-            Console.WriteLine("Are Equal = " + resultCaseSensitive);
-            Console.WriteLine("");
+            var resultAny = numbers.Any();
+            var resultAnyCondition = numbers.Any(x => x < 10);
 
-            string[] countries3 = { "USA", "INDIA", "UK" };
-            string[] countries4 = { "UK", "INDIA", "USA" };
+            var resultContains = numbers.Contains(3);
 
-            var resultUnordered = countries3.SequenceEqual(countries4);
-            var resultOrderBy = countries3.OrderBy(c => c).SequenceEqual(countries4.OrderBy(c => c));
+            string[] countries = { "USA", "INDIA", "UK" };
 
-            Console.WriteLine("Are Equal = " + resultUnordered);
-            Console.WriteLine("Are Equal = " + resultOrderBy);
-            Console.WriteLine("");
+            var resultContainsCaseSensitive = countries.Contains("india", StringComparer.OrdinalIgnoreCase);
+
+            Console.WriteLine(result);
+            Console.WriteLine(resultAny);
+            Console.WriteLine(resultAnyCondition);
+            Console.WriteLine(resultContains);
+            Console.WriteLine(resultContainsCaseSensitive);
 
 
-            //  "We discussed implementing these 4 options for Distince in Part26 of LINQ Tutorial. In the same way these options
-            //  can be implemented for SequenceEqual() method"
+            List<Employee> employees = new List<Employee>()
+            {
+                new Employee {ID = 101, Name = "Rosy"},
+                new Employee {ID = 102, Name = "Susy"}
+            };
+
+            //  will only check the object reference
+            //
+            var resultComplex = employees.Contains(new Employee { ID = 101, Name = "Rosy" });
+
+            // solve using projection
+            // 
+            var resultComplexProject = employees.Select(x => new { x.ID, x.Name }).Contains(new { ID = 101, Name = "Rosy" });
+
+            Console.WriteLine(resultComplex);
+            Console.WriteLine(resultComplexProject);
 
         }
 
