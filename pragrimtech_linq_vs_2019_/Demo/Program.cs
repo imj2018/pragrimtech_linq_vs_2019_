@@ -16,50 +16,44 @@ namespace Demo
 
         public static void Main()
         {
-            //int[] numbers = { };
-            //int result = numbers.First(x => x < 4);
-            //int[] numbers = { 1, 3 };
-            //int result = numbers.First();
-
-            int[] numbers = { 1, 2, 4, 5, 6, 7, 8, 9};
-
-
-            //int[] numbers = { };
-            int result = numbers.FirstOrDefault();
-
-            //int resultLast = numbers.Last();
-            int resultLast = numbers.LastOrDefault(x => x < 5);
-
-
-            //int resultElementAt = numbers.ElementAt(3);
-            int resultElementAt = numbers.ElementAtOrDefault(100);
+            //  Department.GetAllDepartments is the outer sequence, Employee.GetAllEmployees() is
+            //  the inner
+            //
+            //var employeesByDepartment = Department.GetAllDepartments()
+            //                                      .GroupJoin(Employee.GetAllEmployees(),
+            //                                      d => d.ID,
+            //                                      e => e.DepartmentID,
+            //                                      (department, employees) => new
+            //                                      {
+            //                                          Department = department,
+            //                                          Employees = employees
+            //                                      }) ;
 
 
-            int[] numbersSingle = { 2 };
-            
-            //int resultSingle = numbers.Single();
-            
-            //int resultSingle = numbersSingle.Single(x => x % 2 == 0);
-            int resultSingle = numbersSingle.SingleOrDefault(x => x % 2 == 0);
+            // SQL like
+            //
+            var employeesByDepartment = from d in Department.GetAllDepartments()
+                                        join e in Employee.GetAllEmployees()
+                                        on d.ID equals e.DepartmentID into eGroup
+                                        select new
+                                        {
+                                            Department = d,
+                                            Employees = eGroup
+                                        };
 
 
-            //int[] numbersDefaultIfEmpty = { };
-            int[] numbersDefaultIfEmpty = { 1, 2, 3 };
-
-            //IEnumerable<int> resultDefaultIfEmpty = numbersDefaultIfEmpty.DefaultIfEmpty();
-            IEnumerable<int> resultDefaultIfEmpty = numbersDefaultIfEmpty.DefaultIfEmpty(100);
-
-            foreach (var i in resultDefaultIfEmpty)
+            foreach (var department in employeesByDepartment)
             {
-                Console.Write(i);
+                Console.WriteLine(department.Department.Name + " " + department.Department.ID);
+                
+                foreach (var employee in department.Employees)
+                {
+                    Console.WriteLine(" " + employee.Name);
+                }
+                Console.WriteLine("");
             }
-            Console.WriteLine("");
 
-
-            Console.WriteLine("Result = " + result); 
-            Console.WriteLine("Result = " + resultLast);
-            Console.WriteLine("Result = " + resultElementAt);
-            Console.WriteLine("Result = " + resultSingle);
+ 
 
 
 
