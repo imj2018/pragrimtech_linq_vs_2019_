@@ -16,64 +16,63 @@ namespace Demo
 
         public static void Main()
         {
+            for (int i = 1; i <= 10; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+
+            IEnumerable<int> result = Enumerable.Range(1, 10).Where(x => x % 2 == 0);
+
+            foreach (var item in result)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine("");
 
 
-            int[] numbers1 = { 1, 2, 3, 4, 5 };
-            int[] numbers2 = { 1, 3, 6, 7, 8 };
+            var resultRepeat = Enumerable.Repeat("Hello", 5);
 
-            //  "Union combines two collections into one collection while removing duplicate elements."
+            foreach (var item in resultRepeat)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine("");
+
+
+            //IEnumerable<int> data = GetData();
+
+            //if (data != null)
+            //{
+            //    foreach (var item in GetData())
+            //    {
+            //        Console.WriteLine(item);
+            //    }
+            //    Console.WriteLine(""); 
+            //}
+
+
+            //  Empty is useful if the data may be coming from a somewhere else e.g a third party
+            //  and may throw a null
             //
-            var result = numbers1.Union(numbers2);
+            IEnumerable<int> data = GetData() ?? Enumerable.Empty<int>();
+            Console.WriteLine(data.Count());
 
-            foreach (var v in result)
+            foreach (var item in data)
             {
-                Console.WriteLine(v);
+                Console.WriteLine(item);
             }
             Console.WriteLine("");
 
 
-            List<Employee> employees1 = new List<Employee>()
-            {
-                new Employee { ID = 101, Name = "Mike"},
-                new Employee { ID = 102, Name = "Susy"},
-                new Employee { ID = 103, Name = "Mary" },
-            };
+        }
 
-            List<Employee> employees2 = new List<Employee>()
-            {
-                new Employee { ID = 101, Name = "Mike"},
-                new Employee { ID = 104, Name = "John"}
-            };
-
-            //  like Distinct will not compare the properties of the object, can be solved
-            //  the same way by projecting an anonymous type
-            // 
-            //var resultComplex = employees1.Union(employees2);
-            var resultComplex = employees1.Select(x => new { x.ID, x.Name })
-                                          .Union(employees2.Select(x => new { x.ID, x.Name }));
-
-            foreach (var v in resultComplex)
-            {
-                Console.WriteLine(v.ID + "\t" + v.Name);
-            }
-            Console.WriteLine("");
-
-
-            var resultIntersect = numbers1.Intersect(numbers2);
-
-            foreach (var v in resultIntersect)
-            {
-                Console.WriteLine(v);
-            }
-            Console.WriteLine("");
-
-            var resultExcept = numbers1.Except(numbers2);
-
-            foreach (var v in resultExcept)
-            {
-                Console.WriteLine(v);
-            }
-
+        public static IEnumerable<int> GetData()
+        {
+            //return new List<int> { 1, 2, 3 };
+            return null;
 
         }
 
